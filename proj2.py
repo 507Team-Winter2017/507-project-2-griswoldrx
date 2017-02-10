@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-
+import time
+start_time = time.time()
 #### Problem 1 ####
 print('\n*********** PROBLEM 1 ***********')
 print('New York Times -- First 10 Story Headings\n')
@@ -71,3 +72,6 @@ for each in range(6):
 	umsi_url = umsi_url + '&page=' + str(page)
 	chunk = chunk +20
 	page +=1
+
+end_time = time.time()
+print("total time to process=", str(end_time - start_time), "seconds")
