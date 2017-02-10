@@ -7,8 +7,7 @@ print('\n*********** PROBLEM 1 ***********')
 print('New York Times -- First 10 Story Headings\n')
 url = 'http://nytimes.com'
 result = requests.get(url)
-html = result.text
-soup = BeautifulSoup(html, 'html.parser')
+soup = BeautifulSoup(result.text, 'html.parser')
 
 story_heading = soup.find_all('h2', class_ = 'story-heading')
 for i in range(10):
@@ -23,8 +22,7 @@ print('Michigan Daily -- MOST READ\n')
 
 mi_url = 'https://www.michigandaily.com/'
 mi_result = requests.get(mi_url)
-mi_html = mi_result.text
-mi_soup = BeautifulSoup(mi_html, 'html.parser')
+mi_soup = BeautifulSoup(mi_result.text, 'html.parser')
 
 for div in mi_soup.find_all('div', {'class':"panel-pane pane-mostread"}):
 	for li in div.find_all('li'):
@@ -36,8 +34,7 @@ print("Mark's page -- Alt tags\n")
 
 marks_url = "http://newmantaylor.com/gallery.html"
 marks_result = requests.get(marks_url)
-marks_html = marks_result.text
-marks_soup = BeautifulSoup(marks_html, 'html.parser')
+marks_soup = BeautifulSoup(marks_result.text, 'html.parser')
 
 for img in marks_soup.find_all('img'):
 	try:
@@ -52,14 +49,12 @@ print("UMSI faculty directory emails\n")
 def getemails(url, chunk):
 	count = 1
 	umsi_result = requests.get(umsi_url)
-	umsi_html = umsi_result.text
-	umsi_soup = BeautifulSoup(umsi_html, 'html.parser')
+	umsi_soup = BeautifulSoup(umsi_result.text, 'html.parser')
 	for div in umsi_soup.find_all('div', {'class' : "field-item even"}):
 		for a in div.find_all('a', href = True):
 			link = a['href']
 			new_page = requests.get('https://www.si.umich.edu' + link)
-			new_page_html = new_page.text
-			new_page_soup = BeautifulSoup(new_page_html, 'html.parser')
+			new_page_soup = BeautifulSoup(new_page.text, 'html.parser')
 			for div in new_page_soup.find_all('div', {'class' : "field-item even"}):
 				for a1 in div.find_all('a', href= True):
 					email = a1['href']
