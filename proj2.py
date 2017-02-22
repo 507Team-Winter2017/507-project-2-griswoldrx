@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import re
 import time
 start_time = time.time()
+import json
+
 #### Problem 1 ####
 print('\n*********** PROBLEM 1 ***********')
 print('New York Times -- First 10 Story Headings\n')
@@ -49,12 +51,14 @@ print("UMSI faculty directory emails\n")
 
 def getemails(url, chunk):
 	count = 1
-	umsi_result = requests.get(umsi_url)
+	print(url)
+	print(chunk)
+	umsi_result = requests.get(umsi_url, headers={'User-Agent': 'SI_CLASS'})
 	umsi_soup = BeautifulSoup(umsi_result.text, 'html.parser')
 	for div in umsi_soup.find_all('div', {'class' : "field-item even"}):
 		for a in div.find_all('a', href = True):
 			link = a['href']
-			new_page = requests.get('https://www.si.umich.edu' + link)
+			new_page = requests.get(('https://www.si.umich.edu' + link), headers={'User-Agent': 'SI_CLASS'} )
 			new_page_soup = BeautifulSoup(new_page.text, 'html.parser')
 			for div in new_page_soup.find_all('div', {'class' : "field-item even"}):
 				for a1 in div.find_all('a', href= True):
