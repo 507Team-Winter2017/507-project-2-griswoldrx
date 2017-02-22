@@ -51,8 +51,6 @@ print("UMSI faculty directory emails\n")
 
 def getemails(url, chunk):
 	count = 1
-	print(url)
-	print(chunk)
 	umsi_result = requests.get(umsi_url, headers={'User-Agent': 'SI_CLASS'})
 	umsi_soup = BeautifulSoup(umsi_result.text, 'html.parser')
 	for div in umsi_soup.find_all('div', {'class' : "field-item even"}):
